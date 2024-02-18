@@ -2,10 +2,10 @@ import * as React from 'react';
 import _ from 'lodash';
 import { sortArray } from '../../shared/utilities';
 import {getCategories} from '../../services/category.service';
-import { getProducts, getProductsByCategory } from '../../services/products.service';
+import { deleteProduct, getProducts, getProductsByCategory } from '../../services/products.service';
 import ProductCard from '../../components/card/product-card';
 import { Product } from '../../services/models/product';
-import { Toolbar,Box, CssBaseline } from '@mui/material';
+import { Toolbar,Box, Grid } from '@mui/material';
 import SearchBar from '../../components/search-bar/search-bar';
 import Sidebar from '../../components/sidebar/sidebar';
 import Header from '../../components/header/header';
@@ -25,9 +25,7 @@ const ViewProduct = () => {
     .catch((err: any) => {
       console.log(err);
     })
-
     getFilteredProducts('', sortBy);
-    
   },[]);
 
   const getFilteredProducts = (category: string, sortByValue: string) => {
@@ -68,16 +66,20 @@ const ViewProduct = () => {
     setSearchText(value);
   }
 
+  const handleDelete = (id: number) => {
+    deleteProduct(id);
+  }
+
   return (
     <Box sx={{ display: 'flex' }}>
-      <CssBaseline />
       <Header />
-      <Sidebar categories={categories} handleCategories={handleCategories} />
+      <Sidebar categories={categories} selectedCategory={selectedCategory} handleCategories={handleCategories} />
       <Box
         component="main"
         sx={{ flexGrow: 1, bgcolor: 'background.default', p: 3 }}
       >
       <Toolbar />
+      {selectedCategory && <><Grid sx={{ p: 0 }} item xs={4}><h2><b>Category: {selectedCategory}</b></h2></Grid><Grid item xs={8}></Grid></>}
       <SearchBar 
         sortBy={sortBy} 
         searchText={searchText} 
@@ -85,11 +87,9 @@ const ViewProduct = () => {
         handleSearchChange={handleSearchChange} 
         handleSortBy={handleSortBy} 
       />
-        {/* {selectedCategory && <><Grid sx={{ p: 0 }} item xs={4}><h4><b>Category: {selectedCategory}</b></h4></Grid><Grid item xs={8}></Grid></>} */}
-       
-       {products.length > 0 && products.map((product, index) => (
+      {products.length > 0 && products.map((product, index) => (
         <>
-          <ProductCard product={product}/>
+          <ProductCard product={product} handleDelete={handleDelete}/>
           <br/>
         </>)
         )}

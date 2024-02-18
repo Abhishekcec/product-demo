@@ -16,10 +16,11 @@ const drawerWidth = 240;
 
 interface Props {
   categories: string[];
+  selectedCategory: string;
   handleCategories: (value: string) => void;
 }
 
-const Sidebar: React.FC<Props> = ({categories, handleCategories}) => {
+const Sidebar: React.FC<Props> = ({categories, selectedCategory, handleCategories}) => {
   return (
     <Box sx={{ display: 'flex' }}>
       <Drawer
@@ -35,13 +36,13 @@ const Sidebar: React.FC<Props> = ({categories, handleCategories}) => {
         anchor="left"
       >
         <Toolbar>
-          <h4><b>Categories</b></h4>
+          <h3>Categories</h3>
         </Toolbar>
         <Divider />
         <List>
           {categories.map((text, index) => (
             <ListItem key={text} disablePadding>
-              <ListItemButton onClick={() => handleCategories(text)}>
+              <ListItemButton selected = {text === selectedCategory} onClick={() => handleCategories(text)}>
               <ListItemIcon>
                   <ViewModuleIcon />
                 </ListItemIcon>

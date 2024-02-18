@@ -15,7 +15,7 @@ export const getProductsByCategory = (category: string) => {
 }
 
 export const deleteProduct = (id: number) => {
-    return axios.delete(`https://dummyjson.com/products/category/${id}`)
+    return axios.delete(`https://dummyjson.com/products/${id}`)
     .then(res => {
         return res.data.products;
     })

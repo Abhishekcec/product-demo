@@ -18,13 +18,14 @@ const SearchBar: React.FC<Props> = ({searchText, sortBy, handleSearch, handleSea
         component="main"
         sx={{ flexGrow: 1, bgcolor: 'background.default', p: 3 }}
     >
-        <Grid container spacing={2}>
+        <Grid container >
             <Grid item xs={8}>
                 <FormControl sx={{ m: 1, width: '100%' }} variant="outlined">
-                    <InputLabel htmlFor="search">Search</InputLabel>
+                    <InputLabel size='small' htmlFor="search">Search</InputLabel>
                     <OutlinedInput
                         id="search"
                         type={'text'}
+                        size='small'
                         value={searchText}
                         onChange={(event) => handleSearchChange(event.target.value)}
                         endAdornment={
@@ -45,12 +46,13 @@ const SearchBar: React.FC<Props> = ({searchText, sortBy, handleSearch, handleSea
             </Grid>
             <Grid item xs={4}>
                 <FormControl sx={{ m: 1, width: '100%' }}>
-                    <InputLabel id="demo-simple-select-label">Sort By</InputLabel>
+                    <InputLabel size='small' id="demo-simple-select-label">Sort By</InputLabel>
                     <Select
                         labelId="demo-simple-select-label"
                         id="demo-simple-select"
                         value={sortBy}
                         label="Sort By"
+                        size='small'
                         onChange={(event) => handleSortBy(event.target.value as string)}
                     >
                         <MenuItem value={'title'}>title</MenuItem>
